@@ -41,10 +41,10 @@ struct PlayerAnimationParam
 
 PlayerData g_PlayerData = { 0 };
 
-// このCPPでのみ使用する関数の宣言
-void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
-void UpdatePlayerAnimation();							// アニメーション更新
-void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
+// このcppでのみ使用する関数の宣言
+void startplayeranimation(playeranimationtype anim);	// アニメーション再生
+void updateplayeranimation();							// アニメーション更新
+void calcboxcollision(playerdata player, float& x, float& y, float& w, float& h);
 
 
 void InitPlayer()
@@ -223,4 +223,20 @@ void PlayerDead()
 
 	// リスポーン待機開始
 	g_PlayerData.respawnTimer = PLAYER_RESPAWN_WAIT;
+}
+
+void StartPlayerAnimation(PlayerAnimationType anim)
+{
+	// 再生中のアニメーションであれば何もしない
+	if (anim == g_PlayerData.playAnim) return;
+
+	// 再生中アニメーション設定
+	g_PlayerData.playAnim = anim;
+
+	// 再生に必要なデータを取得
+	AnimationData* animData = &g_PlayerData.animation[anim];
+	PlayerAnimationParam animParam = PLAYER_ANIM_PARAM[anim];
+
+	// アニメーション再生
+	StartAnimation(animData, g_PlayerData.posX, g_PlayerData.posY, animParam.interval, animParam.frameNum, animParam.width, animParam.height, true);
 }
