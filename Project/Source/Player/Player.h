@@ -1,18 +1,8 @@
 #pragma once
 #include "../UI/UIText.h"
-#include "../Animation/Animation.h"
 
-// アニメーションタイプ
-enum PlayerAnimationType
-{
-	ANIME_UP,
-	ANIME_DOWN,
-	ANIME_LEFT,
-	ANIME_RIGHT,
-	ANIME_IDLE,
-	ANIME_MAX,
-	ANIME_NONE = -1
-};
+
+
 
 struct PlayerData
 {
@@ -26,8 +16,6 @@ struct PlayerData
 	float posY;					// Y座標
 	float moveX;				// X移動量
 	float moveY;				// Y移動量
-	AnimationData animation[ANIME_MAX];	// アニメーション
-	PlayerAnimationType playAnim;				// 再生中のアニメーション
 	UITextData* lifeText;		//残機UIText
 };
 
@@ -46,4 +34,3 @@ PlayerData* GetPlayer();
 
 // リスポーン処理(リスポーンできなかったらfalseを返す)
 bool RespawnPlayer();
-
