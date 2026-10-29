@@ -3,9 +3,17 @@
 #include "../Input/Input.h"
 #include "../Collision/Collsion.h"
 #include "../Effect/AnimationEffect.h"
-#include "../Bullet/BulletManager.h"
 #include "../Scene/SceneManager.h"
 #include "../Sound/SoundManager.h"
+
+// アニメーション用パラメータ
+struct PlayerAnimationParam
+{
+	int interval;
+	int frameNum;
+	int width;
+	int height;
+};
 
 // 残機表示の文字列
 #define PLAYER_LIFE_STRING ("x%02d")
@@ -33,6 +41,12 @@
 
 PlayerData g_PlayerData = { 0 };
 
+// このCPPでのみ使用する関数の宣言
+void StartPlayerAnimation(PlayerAnimationType anim);	// アニメーション再生
+void UpdatePlayerAnimation();							// アニメーション更新
+void CalcBoxCollision(PlayerData player, float& x, float& y, float& w, float& h);
+
+
 void InitPlayer()
 {
 	g_PlayerData.life = 0;
@@ -45,6 +59,14 @@ void InitPlayer()
 	g_PlayerData.active = false;
 	g_PlayerData.invisible = false;
 	g_PlayerData.lifeText = nullptr;
+
+	for (int i = 0; i < ANIME_MAX; i++)
+	{
+		InitAnimation(&g_PlayerData.animation[i]);
+	}
+
+	// 構造体はmemsetで0初期化できる
+	memset(&g_PlayerData.boxCollision, 0, sizeof(g_PlayerData.boxCollision));
 }
 
 void LoadPlayer()
