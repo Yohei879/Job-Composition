@@ -40,9 +40,6 @@
     <Filter Include="Source\Bullet">
       <UniqueIdentifier>{f6a93388-dc55-4516-a437-770952d7a0ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Effect">
-      <UniqueIdentifier>{bdaab061-20d3-4189-94cd-4a86aebe319f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\UIImage">
       <UniqueIdentifier>{c2395586-a8b6-448f-8bc6-56371e9385f0}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="Source\Collision">
       <UniqueIdentifier>{d7ccb616-ed59-43d2-9f65-7d1fbbe8e9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Effect">
+      <UniqueIdentifier>{bdaab061-20d3-4189-94cd-4a86aebe319f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

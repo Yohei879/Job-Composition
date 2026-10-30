@@ -52,7 +52,7 @@ void DrawBlock()
 	{
 		if (block->active)
 		{
-			DrawGraph((int)(block->pos.x - camera.posX), (int)(block->pos.y - camera.posY), block->handle, TRUE);
+			DrawGraph((int)(block->pos.x - camera.pos.x), (int)(block->pos.y - camera.pos.y), block->handle, TRUE);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "../UI/UIText.h"
+#include "../Animation/Animation.h"
 
 
 
@@ -12,10 +13,8 @@ struct PlayerData
 	int respawnTimer;			// リスポーン待機タイマー
 	int invisibleTimer;			// 無敵時間タイマー
 	int life;					// 残機数
-	float posX;					// X座標
-	float posY;					// Y座標
-	float moveX;				// X移動量
-	float moveY;				// Y移動量
+	VECTOR pos;					//座標
+	VECTOR move;				//
 	UITextData* lifeText;		//残機UIText
 };
 
