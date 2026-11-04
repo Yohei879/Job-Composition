@@ -1,4 +1,5 @@
 #pragma once
+#include "DxLib.h"
 
 struct CameraData
 {
@@ -10,5 +11,3 @@ void StepCamera();
 void DrawCamera();
 
 CameraData GetCamera();
-
-

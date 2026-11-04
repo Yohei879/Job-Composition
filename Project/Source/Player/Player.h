@@ -1,7 +1,8 @@
 #pragma once
 #include "../UI/UIText.h"
+#include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
-
+#include "../Collision/CollsionParameter.h"
 
 
 
@@ -13,8 +14,7 @@ struct PlayerData
 	int respawnTimer;			// リスポーン待機タイマー
 	int invisibleTimer;			// 無敵時間タイマー
 	int life;					// 残機数
-	VECTOR pos;					//座標
-	VECTOR move;				//
+	Body body;
 	UITextData* lifeText;		//残機UIText
 };
 
@@ -29,7 +29,7 @@ void FinPlayer();
 void DrawPlayer();
 
 // 取得関数
-PlayerData* GetPlayer();
+PlayerData GetPlayer();
 
 // リスポーン処理(リスポーンできなかったらfalseを返す)
 bool RespawnPlayer();

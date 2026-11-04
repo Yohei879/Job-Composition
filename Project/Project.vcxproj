@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation\Animation.cpp" />
+    <ClCompile Include="Source\Attack\Attack.cpp" />
     <ClCompile Include="Source\BackGround\BackGround.cpp" />
     <ClCompile Include="Source\Bullet\BulletManager.cpp" />
     <ClCompile Include="Source\Camera\Camera.cpp" />
@@ -164,11 +165,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h" />
+    <ClInclude Include="Source\Attack\Attack.h" />
     <ClInclude Include="Source\BackGround\BackGround.h" />
     <ClInclude Include="Source\Bullet\BulletManager.h" />
     <ClInclude Include="Source\Bullet\BulletParameter.h" />
     <ClInclude Include="Source\Camera\Camera.h" />
     <ClInclude Include="Source\Collision\Collsion.h" />
+    <ClInclude Include="Source\Collision\CollsionParameter.h" />
     <ClInclude Include="Source\Effect\AnimationEffect.h" />
     <ClInclude Include="Source\Enemy\EnemyManager.h" />
     <ClInclude Include="Source\FPS\FPS.h" />

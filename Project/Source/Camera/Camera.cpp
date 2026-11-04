@@ -3,8 +3,8 @@
 #include "../Input/Input.h"
 #include "../Player/Player.h"
 
-#define DEBUG_CAMERA_SPEED (4.0f)
-#define CAMERA_SCROLL_START_X (100.0f)
+#define DEBUG_CAMERA_SPEED (10.0f)
+#define CAMERA_SCROLL_START_X (300.0f)
 
 CameraData g_CameraData = { 0 };
 
@@ -15,10 +15,10 @@ void InitCamera()
 void StepCamera()
 {
 	//ÉvÉåÉCÉÑÅ[éÊìæ
-	PlayerData* player = GetPlayer();
+	PlayerData player = GetPlayer();
 
-	g_CameraData.pos.x = player.pos.x - 100.0f;
-	g_CameraData.pos.y = player.pos.y - 600.0f;
+	g_CameraData.pos.x = player.body.pos.x - 100.0f;
+	g_CameraData.pos.y = player.body.pos.y + 100.0f;
 }
 
 void DrawCamera()

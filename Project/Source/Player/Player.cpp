@@ -6,6 +6,7 @@
 #include "../Effect/AnimationEffect.h"
 #include "../Scene/SceneManager.h"
 #include "../Sound/SoundManager.h"
+#include "../Attack/Attack.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -29,7 +30,7 @@ struct PlayerAnimationParam
 #define PLAYER_MOVE_AREA_LEFT (0.0f)
 #define PLAYER_MOVE_AREA_RIGHT (1536.0f)
 #define PLAYER_MOVE_AREA_TOP (0.0f)
-#define PLAYER_MOVE_AREA_BOTTOM (743.0f)
+#define PLAYER_MOVE_AREA_BOTTOM (750.0f)
 
 // プレイヤーの残機
 #define PLAYER_DEFAULT_LIFE (2)
@@ -45,10 +46,10 @@ PlayerData g_PlayerData = { 0 };
 void InitPlayer()
 {
 	g_PlayerData.life = 0;
-	g_PlayerData.pos.x = PLAYER_DEFAULT_POS_X;
-	g_PlayerData.pos.y = PLAYER_DEFAULT_POS_Y;
-	g_PlayerData.move.x = 0.0f;
-	g_PlayerData.move.y = 0.0f;
+	g_PlayerData.body.pos.x = PLAYER_DEFAULT_POS_X;
+	g_PlayerData.body.pos.y = PLAYER_DEFAULT_POS_Y;
+	g_PlayerData.body.move.x = 0.0f;
+	g_PlayerData.body.move.x = 0.0f;
 
 	g_PlayerData.respawnTimer = 0;
 	g_PlayerData.active = false;
@@ -96,30 +97,33 @@ void StepPlayer()
 		return;
 	}
 	// 移動量は毎回リセットする
-	g_PlayerData.move.x = 0.0f;
-	g_PlayerData.move.y = 0.0f;
+	g_PlayerData.body.move.x = 0.0f;
+	g_PlayerData.body.move.y = 0.0f;
 
 	// 上入力
 	if (IsInputKey(KEY_UP))
 	{
-		g_PlayerData.move.y = -PLAYER_MOVE_SPEED;
+		g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
 	}
 	// 下入力
 	if (IsInputKey(KEY_DOWN))
 	{
-		g_PlayerData.move.y = PLAYER_MOVE_SPEED;
+		g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
 	}
 	// 左入力
 	if (IsInputKey(KEY_LEFT))
 	{
-		g_PlayerData.move.x = -PLAYER_MOVE_SPEED;
+		g_PlayerData.body.move.x = -PLAYER_MOVE_SPEED;
 	}
 	// 右入力
 	if (IsInputKey(KEY_RIGHT))
 	{
-		g_PlayerData.move.x = PLAYER_MOVE_SPEED;
+		g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
 	}
+	if (IsInputKey(KEY_Z))
+	{
 
+	}
 	
 }
 
@@ -129,14 +133,14 @@ void UpdatePlayer()
 	if (!g_PlayerData.active) return;
 
 	// 移動処理
-	g_PlayerData.pos.x += g_PlayerData.move.x;
-	g_PlayerData.pos.y += g_PlayerData.move.y;
+	g_PlayerData.body.pos.x += g_PlayerData.body.move.x;
+	g_PlayerData.body.pos.y += g_PlayerData.body.move.y;
 
 	// 画面外に出ないように移動制限
-	if (g_PlayerData.pos.x < PLAYER_MOVE_AREA_LEFT) g_PlayerData.pos.x = PLAYER_MOVE_AREA_LEFT;
-	if (g_PlayerData.pos.x > PLAYER_MOVE_AREA_RIGHT) g_PlayerData.pos.x = PLAYER_MOVE_AREA_RIGHT;
-	if (g_PlayerData.pos.y < PLAYER_MOVE_AREA_TOP) g_PlayerData.pos.y = PLAYER_MOVE_AREA_TOP;
-	if (g_PlayerData.pos.y > PLAYER_MOVE_AREA_BOTTOM) g_PlayerData.pos.y = PLAYER_MOVE_AREA_BOTTOM;
+	if (g_PlayerData.body.pos.x < PLAYER_MOVE_AREA_LEFT) g_PlayerData.body.pos.x = PLAYER_MOVE_AREA_LEFT;
+	if (g_PlayerData.body.pos.x > PLAYER_MOVE_AREA_RIGHT) g_PlayerData.body.pos.x = PLAYER_MOVE_AREA_RIGHT;
+	if (g_PlayerData.body.pos.y < PLAYER_MOVE_AREA_TOP) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_TOP;
+	if (g_PlayerData.body.pos.y > PLAYER_MOVE_AREA_BOTTOM) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_BOTTOM;
 
 	
 
@@ -160,21 +164,11 @@ void DrawPlayer()
 
 	//カメラ取得
 	CameraData camera = GetCamera();
-
-	g_PlayerData.pos.x - camera.pos.x, g_PlayerData.pos.x - camera.pos.y;
-	DrawGraph(
-		(int)(g_PlayerData.pos.x - camera.pos.x),
-		(int)(g_PlayerData.pos.y - camera.pos.y),
-		g_PlayerData.handle,
-		TRUE
-	);
-
 	{
 		// 通常描画
-		DrawGraph((int)g_PlayerData.pos.x, (int)g_PlayerData.pos.y, g_PlayerData.handle, TRUE);
-
-
+		DrawGraph((int)g_PlayerData.body.pos.x, (int)g_PlayerData.body.pos.y, g_PlayerData.handle, TRUE);
 	}
+	
 }
 
 void FinPlayer()
@@ -182,9 +176,9 @@ void FinPlayer()
 	DeleteGraph(g_PlayerData.handle);
 }
 
-PlayerData* GetPlayer()
+PlayerData GetPlayer()
 {
-	return &g_PlayerData;
+	return g_PlayerData;
 }
 
 // リスポーン処理(リスポーンできなかったらfalseを返す)
@@ -201,8 +195,8 @@ bool RespawnPlayer()
 		g_PlayerData.invisibleTimer = PLAYER_RESPAWN_INVISIBLE_TIME;
 
 		// 初期位置に配置
-		g_PlayerData.pos.x = PLAYER_DEFAULT_POS_X;
-		g_PlayerData.pos.y = PLAYER_DEFAULT_POS_Y;
+		g_PlayerData.body.pos.x = PLAYER_DEFAULT_POS_X;
+		g_PlayerData.body.pos.y = PLAYER_DEFAULT_POS_Y;
 
 		// 残機を減らす
 		g_PlayerData.life--;

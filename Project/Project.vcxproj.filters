@@ -37,9 +37,6 @@
     <Filter Include="Source\BackGround">
       <UniqueIdentifier>{5484dd56-323d-4d93-b8fe-f0f22ff4ba06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Bullet">
-      <UniqueIdentifier>{f6a93388-dc55-4516-a437-770952d7a0ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\UIImage">
       <UniqueIdentifier>{c2395586-a8b6-448f-8bc6-56371e9385f0}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,12 @@
     </Filter>
     <Filter Include="Source\Effect">
       <UniqueIdentifier>{bdaab061-20d3-4189-94cd-4a86aebe319f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Attack">
+      <UniqueIdentifier>{8eb9ecce-eb27-4a0b-9e25-51a3f98a6ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet">
+      <UniqueIdentifier>{f6a93388-dc55-4516-a437-770952d7a0ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="Source\Map\Block.cpp">
       <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Attack\Attack.cpp">
+      <Filter>Source\Attack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="Source\Map\Block.h">
       <Filter>Source\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\CollsionParameter.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Attack\Attack.h">
+      <Filter>Source\Attack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

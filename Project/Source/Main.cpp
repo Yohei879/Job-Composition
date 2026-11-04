@@ -28,18 +28,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 入力システムを初期化
-	//InitInput();
-
-	// UIはどこでも使うのでゲーム起動時に初期化、ロード
-	//InitUIImage();
-	//InitUIText();
-
-	//LoadUIImage();
-	//LoadUIText();
-
-	// サウンドもどこでも使うのでゲーム起動時にロード
-	//LoadBGM();
-	//LoadSE();
+	InitInput();
 
 	// FPS制御を初期化
 	InitFPS();
@@ -77,17 +66,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		// 画面フリップ
 		ScreenFlip();
 	}
-
-	// 入力システムの終了
-//	FinInput();
-
-	// UI終了
-	//FinUIImage();
-	//FinUIText();
-
-	// サウンド終了
-	//FinBGM();
-	//FinSE();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 
