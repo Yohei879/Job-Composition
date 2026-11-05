@@ -135,6 +135,9 @@
     <ClCompile Include="Source\Attack\Attack.cpp">
       <Filter>Source\Attack</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Attack\AttackManager.cpp">
+      <Filter>Source\Attack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -213,6 +216,9 @@
       <Filter>Source\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Source\Attack\Attack.h">
+      <Filter>Source\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Attack\AttackManager.h">
       <Filter>Source\Attack</Filter>
     </ClInclude>
   </ItemGroup>

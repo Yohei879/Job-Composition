@@ -6,7 +6,7 @@
 #include "../Effect/AnimationEffect.h"
 #include "../Scene/SceneManager.h"
 #include "../Sound/SoundManager.h"
-#include "../Attack/Attack.h"
+#include "../Attack/AttackManager.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -40,6 +40,14 @@ struct PlayerAnimationParam
 
 // リスポーン時の無敵時間
 #define PLAYER_RESPAWN_INVISIBLE_TIME (180)
+
+#define ATTACK_OFFSET_X (50.0f)
+#define ATTACK_OFFSET_Y (10.0f)
+
+//攻撃データ
+#define  ATTACK_LIFE (120)
+#define	 ATTACK_SPEED (20.0f)
+#define  ATTACK_RADIUS (15.0f)
 
 PlayerData g_PlayerData = { 0 };
 
@@ -120,9 +128,15 @@ void StepPlayer()
 	{
 		g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
 	}
+
+	//Zkeyで攻撃
 	if (IsInputKey(KEY_Z))
 	{
+		// 発射位置はちょっと前から
+		float fireX = g_PlayerData.body.pos.x + PLAYER_DEFAULT_POS_X;
+		float fireY = g_PlayerData.body.pos.y + PLAYER_DEFAULT_POS_Y;
 
+		RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
 	}
 	
 }

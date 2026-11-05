@@ -2,6 +2,7 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Map/MapManager.h"
 #include "../../Player/Player.h"
+#include "../../Attack/AttackManager.h"
 #include "../../Camera/Camera.h"
 #include "../../Collision/Collsion.h"
 #include "../../UI/UIImage.h"
@@ -21,6 +22,9 @@ void InitPlayScene()
 
 	// カメラ初期化
 	InitCamera();
+
+	//攻撃初期化
+	InitAllAttack();
 }
 
 void LoadPlayScene()
@@ -30,6 +34,9 @@ void LoadPlayScene()
 
 	// マップをロード
 	LoadMap();
+
+	//攻撃ロード
+	LoadAllAttack();
 }
 
 void StartPlayScene()
@@ -52,6 +59,9 @@ void StepPlayScene()
 	// プレイヤーステップ
 	StepPlayer();
 
+	//攻撃ステップ
+	StepAllAttack();
+
 	// カメラステップ
 	StepCamera();
 
@@ -69,6 +79,9 @@ void UpdatePlayScene()
 	// 当たり判定
 	//CheckCollision();
 
+	//攻撃更新
+	UpdateAllAttack();
+
 	// UI更新
 	UpdateUIImage();
 	UpdateUIText();
@@ -81,6 +94,9 @@ void DrawPlayScene()
 
 	// プレイヤー描画
 	DrawPlayer();
+
+	//攻撃描画
+	DrawAllAttack();
 
 	// カメラ描画
 	DrawCamera();
@@ -98,6 +114,9 @@ void FinPlayScene()
 	// UIリセット
 	ResetUIImage();
 	ResetUIText();
+
+	//攻撃終了
+	FinAllAttack();
 
 	// プレイヤー終了
 	FinPlayer();
