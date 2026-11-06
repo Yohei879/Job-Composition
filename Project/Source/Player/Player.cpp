@@ -68,7 +68,7 @@ void InitPlayer()
 
 void LoadPlayer()
 {
-	g_PlayerData.handle = LoadGraph("Data/Player/Player.png");
+	g_PlayerData.handle = LoadGraph("Data/Player/PlayerUp.png");
 }
 
 void StartPlayer()
@@ -112,21 +112,25 @@ void StepPlayer()
 	if (IsInputKey(KEY_UP))
 	{
 		g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
+		g_PlayerData.handle = LoadGraph("Data/Player/PlayerUp.png");
 	}
 	// â∫ì¸óÕ
 	if (IsInputKey(KEY_DOWN))
 	{
 		g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
+		g_PlayerData.handle = LoadGraph("Data/Player/PlayerDown.png");
 	}
 	// ç∂ì¸óÕ
 	if (IsInputKey(KEY_LEFT))
 	{
 		g_PlayerData.body.move.x = -PLAYER_MOVE_SPEED;
+		g_PlayerData.handle = LoadGraph("Data/Player/PlayerLeft.png");
 	}
 	// âEì¸óÕ
 	if (IsInputKey(KEY_RIGHT))
 	{
 		g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
+		g_PlayerData.handle = LoadGraph("Data/Player/PlayerRight.png");
 	}
 
 	//ZkeyÇ≈çUåÇ

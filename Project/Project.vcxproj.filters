@@ -221,5 +221,8 @@
     <ClInclude Include="Source\Attack\AttackManager.h">
       <Filter>Source\Attack</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Animation\AnimationParameter.h">
+      <Filter>Source\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

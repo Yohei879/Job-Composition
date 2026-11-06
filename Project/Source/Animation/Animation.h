@@ -1,18 +1,14 @@
 #pragma once
+#include "AnimationParameter.h"
+#include"DxLib.h"
 
-// エフェクトの種類
-enum AnimationEffectType
-{
-	ANIMATION_EFFECT_TYPE_MAX,
-	WALK_UP,
-	WALK_RIGHT,
-	WALK_LEFT,
-	WALK_DOWN
-};
+//画面に表示できるエフェクトの最大数
+#define ANIMATION_MAX 255
+
+//エフェクトデータ
 struct AnimationData
 {
 	bool active;
-	bool isLoop;
 	int handle;
 	int nowFrame;
 	int frameNum;
@@ -20,12 +16,16 @@ struct AnimationData
 	int frameHeight;
 	int timer;
 	int interval;
-	float posX;
-	float posY;
+	VECTOR pos;
 };
 
-void InitAnimation(AnimationData* animData);
-void UpdateAnimation(AnimationData* animData);
-void DrawAnimation(AnimationData* animData, bool isTurnX = false, bool isTurnY = false);
-void DrawAnimation(AnimationData* animData, float posX, float posY, bool isTurnX = false, bool isTurnY = false);
-void StartAnimation(AnimationData* animData, float posX, float posY, int interval, int frameNum, int width, int height, bool isLoop);
+//各関数の宣言
+void InitAnimation();
+void LoadAnimation();
+void StepAnimation();
+void UpdateAnimation();
+void DrawAnimation();
+void FinAnimation();
+
+//アニメーション開始
+void PlayAnimation(AnimationType type, float posX, float posY, int interval);

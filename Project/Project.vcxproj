@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h" />
+    <ClInclude Include="Source\Animation\AnimationParameter.h" />
     <ClInclude Include="Source\Attack\Attack.h" />
     <ClInclude Include="Source\Attack\AttackManager.h" />
     <ClInclude Include="Source\BackGround\BackGround.h" />
