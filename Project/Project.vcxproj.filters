@@ -138,6 +138,9 @@
     <ClCompile Include="Source\Attack\AttackManager.cpp">
       <Filter>Source\Attack</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player\PlayerAnimation.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
@@ -223,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="Source\Animation\AnimationParameter.h">
       <Filter>Source\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerAnimation.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerAnimationParameter.h">
+      <Filter>Source\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "AttackManager.h"
 #include "Attack.h"
+#include "../Animation/Animation.h"
 
 void InitAllAttack()
 {
@@ -41,4 +42,7 @@ void RequestFireAttack(int life, float posX, float posY, float moveX, float move
 {
 	//攻撃
 	FireAttack(life, posX, posY, moveX, moveY, radius);
+
+	//攻撃したときにアニメーション表示
+	DrawAttack();
 }

@@ -14,6 +14,7 @@ struct AttackData
 	float radius;
 	bool active;
 };
+
 // 関数のプロトタイプ宣言
 void InitAttack();
 void LoadAttack();

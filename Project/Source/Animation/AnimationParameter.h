@@ -3,6 +3,7 @@
 //アニメーションの種類
 enum AnimationType
 {
+	PLAYER,
 	KINOKEN,
 	ANIMATION_TYPE_MAX,
 };
@@ -18,5 +19,6 @@ struct AnimationMasterParameter
 
 const AnimationMasterParameter ANIMATION_MASTER_PARAM[ANIMATION_TYPE_MAX] =
 {
+	3, 400, 400,    //PLAYER
 	12, 16, 16,		//KINOKEN
 };

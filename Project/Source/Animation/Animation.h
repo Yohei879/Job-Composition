@@ -9,6 +9,7 @@
 struct AnimationData
 {
 	bool active;
+	bool isLoop;
 	int handle;
 	int nowFrame;
 	int frameNum;
@@ -28,4 +29,4 @@ void DrawAnimation();
 void FinAnimation();
 
 //アニメーション開始
-void PlayAnimation(AnimationType type, float posX, float posY, int interval);
+void PlayAnimation(AnimationType type, float posX, float posY, int interval, bool isLoop);

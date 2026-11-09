@@ -7,6 +7,8 @@
 #include "../Scene/SceneManager.h"
 #include "../Sound/SoundManager.h"
 #include "../Attack/AttackManager.h"
+#include "../Animation/Animation.h"
+#include "PlayerAnimation.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -83,6 +85,9 @@ void StartPlayer()
 	char text[256];
 	sprintf_s(text, PLAYER_LIFE_STRING, g_PlayerData.life);
 	g_PlayerData.lifeText = CreateUIText(60.0f, 795.0f, text);
+
+	// テスト
+	PlayPlayerAnimation(PLAYER_KINOKEN, 0, 0, 60, true);
 }
 
 void StepPlayer()
@@ -113,12 +118,20 @@ void StepPlayer()
 	{
 		g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
 		g_PlayerData.handle = LoadGraph("Data/Player/PlayerUp.png");
+
+		// テスト
+		g_PlayerData.body.dir = DIR_UP;
+		PlayPlayerAnimation(PLAYER_KINOKEN, 0, 0, 60, true);
 	}
 	// 下入力
 	if (IsInputKey(KEY_DOWN))
 	{
 		g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
 		g_PlayerData.handle = LoadGraph("Data/Player/PlayerDown.png");
+
+		// テスト
+		g_PlayerData.body.dir = DIR_DOWN;
+		PlayPlayerAnimation(PLAYER_LEFT, 0, 0, 60, true);
 	}
 	// 左入力
 	if (IsInputKey(KEY_LEFT))
@@ -137,10 +150,16 @@ void StepPlayer()
 	if (IsInputKey(KEY_Z))
 	{
 		// 発射位置はちょっと前から
-		float fireX = g_PlayerData.body.pos.x + PLAYER_DEFAULT_POS_X;
-		float fireY = g_PlayerData.body.pos.y + PLAYER_DEFAULT_POS_Y;
+		float fireX = PLAYER_DEFAULT_POS_X;
+		float fireY = PLAYER_DEFAULT_POS_Y;
 
 		RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
+
+		// テスト
+		if (g_PlayerData.body.dir == DIR_UP)
+		{
+			PlayPlayerAnimation(PLAYER_KINOKEN_UP, 60, true);
+		}
 	}
 	
 }
@@ -184,7 +203,7 @@ void DrawPlayer()
 	CameraData camera = GetCamera();
 	{
 		// 通常描画
-		DrawGraph((int)g_PlayerData.body.pos.x, (int)g_PlayerData.body.pos.y, g_PlayerData.handle, TRUE);
+		//DrawGraph((int)g_PlayerData.body.pos.x, (int)g_PlayerData.body.pos.y, g_PlayerData.handle, TRUE);
 	}
 	
 }

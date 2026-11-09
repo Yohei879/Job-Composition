@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "Attack.h"
+#include "../Animation/Animation.h"
 
 //UŒ‚‚Ì”z—ñ
 AttackData g_AttackData[ATTACK_MAX] = {0};
@@ -25,8 +26,7 @@ void InitAttack()
 
 void LoadAttack()
 {
-	//‰æ‘œ‚ğƒ[ƒh
-	g_AttackHandle = LoadGraph("Data/Attack/Kinoken.png");
+	LoadAnimation();
 }
 
 void StartAttack()
