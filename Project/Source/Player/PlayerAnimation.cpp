@@ -3,12 +3,15 @@
 #include "PlayerAnimationParameter.h"
 #include "Player.h"
 #include "../Camera/Camera.h"
+#include "Player.cpp"
 
 //アニメーションエフェクトデータ
 PlayerAnimationData g_AnimationData[PLAYER_ANIMATION_MAX] = { 0 };
 
 //エフェクト初期化
 int g_PlayerAnimationHandle[PLAYER_ANIMATION_TYPE_MAX];
+
+PlayerAnimationType current;
 
 //エフェクト初期化
 void InitPlayerAnimation()
@@ -31,8 +34,15 @@ void InitPlayerAnimation()
 
 void LoadPlayerAnimation()
 {
-	g_PlayerAnimationHandle[PLAYER_LEFT] = LoadGraph("Data/Player/PlayerLeft.png");
-	g_PlayerAnimationHandle[PLAYER_KINOKEN] = LoadGraph("Data/Player/PlayerMo-syon.png");
+	g_PlayerAnimationHandle[PLAYER_WALK_UP] = LoadGraph("Data/Player/PlayerUp.png");
+	g_PlayerAnimationHandle[PLAYER_WALK_DOWN] = LoadGraph("Data/Player/PlayerDown.png");
+	g_PlayerAnimationHandle[PLAYER_WALK_LEFT] = LoadGraph("Data/Player/PlayerLeft.png");
+	g_PlayerAnimationHandle[PLAYER_WALK_RIGHT] = LoadGraph("Data/Player/PlayerRight.png");
+	g_PlayerAnimationHandle[PLAYER_KINOKEN_UP] = LoadGraph("Data/Player/PalyerMo-syonUp.png");
+	g_PlayerAnimationHandle[PLAYER_KINOKEN_LEFT] = LoadGraph("Data/Player/PlayerMo-syonLeft.png");
+	g_PlayerAnimationHandle[PLAYER_KINOKEN_RIGHT] = LoadGraph("Data/Player/PlayerMo-syonRight.png");
+	g_PlayerAnimationHandle[PLAYER_KINOKEN_DOWN] = LoadGraph("Data/Player/PlayerMo-syonDown.png");
+
 	
 }
 
@@ -57,6 +67,7 @@ void StepPlayerAnimation()
 				else
 				{
 					animation->active = false;
+					PlayerAnimationEnd(current);
 					continue;
 				}
 			}
@@ -103,6 +114,7 @@ void FinPlayerAnimation()
 //アニメーション再生
 void PlayPlayerAnimation(PlayerAnimationType type, int interval, bool isLoop)
 {
+	 current = type;
 	//
 	PlayerAnimationMasterParameter param = PLAYER_ANIMATION_MASTER_PARAM[type];
 

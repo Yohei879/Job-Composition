@@ -34,6 +34,11 @@ struct PlayerAnimationParam
 #define PLAYER_MOVE_AREA_TOP (0.0f)
 #define PLAYER_MOVE_AREA_BOTTOM (750.0f)
 
+//プレイヤーの向き
+#define PLAYER_DIR_UP (0)
+#define PLAYER_DIR_LEFT (1)
+#define PLAYER_DIR_RIGHT (2)
+#define PLAYER_DIR_DOWN (3)
 // プレイヤーの残機
 #define PLAYER_DEFAULT_LIFE (2)
 
@@ -87,7 +92,7 @@ void StartPlayer()
 	g_PlayerData.lifeText = CreateUIText(60.0f, 795.0f, text);
 
 	// テスト
-	PlayPlayerAnimation(PLAYER_KINOKEN, 0, 0, 60, true);
+	PlayPlayerAnimation(PLAYER_WALK_DOWN, 60, true);
 }
 
 void StepPlayer()
@@ -117,33 +122,33 @@ void StepPlayer()
 	if (IsInputKey(KEY_UP))
 	{
 		g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
-		g_PlayerData.handle = LoadGraph("Data/Player/PlayerUp.png");
-
 		// テスト
-		g_PlayerData.body.dir = DIR_UP;
-		PlayPlayerAnimation(PLAYER_KINOKEN, 0, 0, 60, true);
+		g_PlayerData.body.dir = PLAYER_DIR_UP;
+		PlayPlayerAnimation(PLAYER_WALK_UP, 60, true);
 	}
 	// 下入力
 	if (IsInputKey(KEY_DOWN))
 	{
 		g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
-		g_PlayerData.handle = LoadGraph("Data/Player/PlayerDown.png");
-
 		// テスト
-		g_PlayerData.body.dir = DIR_DOWN;
-		PlayPlayerAnimation(PLAYER_LEFT, 0, 0, 60, true);
+		g_PlayerData.body.dir = PLAYER_DIR_DOWN;
+		PlayPlayerAnimation(PLAYER_WALK_DOWN, 60, true);
 	}
 	// 左入力
 	if (IsInputKey(KEY_LEFT))
 	{
 		g_PlayerData.body.move.x = -PLAYER_MOVE_SPEED;
-		g_PlayerData.handle = LoadGraph("Data/Player/PlayerLeft.png");
+		// テスト
+		g_PlayerData.body.dir = PLAYER_DIR_LEFT;
+		PlayPlayerAnimation(PLAYER_WALK_LEFT, 60, true);
 	}
 	// 右入力
 	if (IsInputKey(KEY_RIGHT))
 	{
 		g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
-		g_PlayerData.handle = LoadGraph("Data/Player/PlayerRight.png");
+		// テスト
+		g_PlayerData.body.dir = PLAYER_DIR_RIGHT;
+		PlayPlayerAnimation(PLAYER_WALK_RIGHT, 60, true);
 	}
 
 	//Zkeyで攻撃
@@ -156,15 +161,54 @@ void StepPlayer()
 		RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
 
 		// テスト
-		if (g_PlayerData.body.dir == DIR_UP)
+		//上攻撃アニメーション
+		if (g_PlayerData.body.dir == PLAYER_DIR_UP)
 		{
-			PlayPlayerAnimation(PLAYER_KINOKEN_UP, 60, true);
+			PlayPlayerAnimation(PLAYER_KINOKEN_UP, 20, false);
+
+		}
+		//右攻撃アニメーション
+		if (g_PlayerData.body.dir == PLAYER_DIR_RIGHT)
+		{
+			PlayPlayerAnimation(PLAYER_KINOKEN_RIGHT, 20, false);
+		}
+		//左攻撃アニメーション
+		if (g_PlayerData.body.dir == PLAYER_DIR_LEFT)
+		{
+			PlayPlayerAnimation(PLAYER_KINOKEN_LEFT, 20, false);
+		}
+		//下攻撃アニメーション
+		if (g_PlayerData.body.dir == PLAYER_DIR_DOWN)
+		{
+			PlayPlayerAnimation(PLAYER_KINOKEN_DOWN, 20, false);
 		}
 	}
-	
+
 }
 
-void UpdatePlayer()
+void PlayerAnimationEnd(PlayerAnimationType type)
+{
+	switch (type)
+	{
+	case PLAYER_KINOKEN_UP:
+		PlayPlayerAnimation(PLAYER_WALK_UP, 20, true);
+		break;
+
+	case PLAYER_KINOKEN_LEFT:
+		PlayPlayerAnimation(PLAYER_WALK_LEFT, 20, true);
+		break;
+
+	case PLAYER_KINOKEN_RIGHT:
+		PlayPlayerAnimation(PLAYER_WALK_RIGHT, 20, true);
+		break;
+
+	case PLAYER_KINOKEN_DOWN:
+		PlayPlayerAnimation(PLAYER_WALK_DOWN, 20, true);
+		break;
+	}
+}	 
+
+void  UpdatePlayer()
 {
 	// 死んでいたら処理しない
 	if (!g_PlayerData.active) return;
@@ -179,7 +223,7 @@ void UpdatePlayer()
 	if (g_PlayerData.body.pos.y < PLAYER_MOVE_AREA_TOP) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_TOP;
 	if (g_PlayerData.body.pos.y > PLAYER_MOVE_AREA_BOTTOM) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_BOTTOM;
 
-	
+
 
 	// 無敵中の処理
 	if (g_PlayerData.invisible)
@@ -205,7 +249,7 @@ void DrawPlayer()
 		// 通常描画
 		//DrawGraph((int)g_PlayerData.body.pos.x, (int)g_PlayerData.body.pos.y, g_PlayerData.handle, TRUE);
 	}
-	
+
 }
 
 void FinPlayer()

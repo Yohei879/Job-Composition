@@ -10,6 +10,7 @@ struct Body
 	float height;
 	float radius;
 	float reflactPower;
+	float dir;
 	VECTOR prevPos;
 	const Body* hitBlock;
 	const Body* groundBlock;

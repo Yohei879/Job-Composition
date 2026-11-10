@@ -3,7 +3,7 @@
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 #include "../Collision/CollsionParameter.h"
-
+#include "../PlayerAnimationParameter.h"
 
 
 struct PlayerData
@@ -33,3 +33,5 @@ PlayerData GetPlayer();
 
 // リスポーン処理(リスポーンできなかったらfalseを返す)
 bool RespawnPlayer();
+
+void PlayerAnimationEnd(PlayerAnimationType type);
