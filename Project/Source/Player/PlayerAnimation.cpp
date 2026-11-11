@@ -3,7 +3,6 @@
 #include "PlayerAnimationParameter.h"
 #include "Player.h"
 #include "../Camera/Camera.h"
-#include "Player.cpp"
 
 //アニメーションエフェクトデータ
 PlayerAnimationData g_AnimationData[PLAYER_ANIMATION_MAX] = { 0 };

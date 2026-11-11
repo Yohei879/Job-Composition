@@ -53,6 +53,13 @@ void DrawBlock()
 		if (block->active)
 		{
 			//DrawGraph((int)(block->pos.x - camera.pos.x), (int)(block->pos.y - camera.pos.y), block->handle, TRUE);
+			DrawExtendGraph
+			((int)block->pos.x * camera.pos.z,
+				(int)block->pos.y * camera.pos.z,
+				(MAP_CHIP_WIDTH+block->pos.x) *camera.pos.z ,
+				(MAP_CHIP_HEIGHT+block->pos.y) * camera.pos.z,
+				block->handle,
+				TRUE);
 		}
 	}
 }

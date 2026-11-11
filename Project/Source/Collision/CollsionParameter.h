@@ -1,6 +1,12 @@
 #pragma once
 #include "DxLib.h"
 
+enum PlayerState
+{
+	PLAYER_STATE_WALK,
+	PLAYER_STATE_ATTACK,
+};
+
 struct Body
 {
 	bool isAir;
@@ -11,6 +17,7 @@ struct Body
 	float radius;
 	float reflactPower;
 	float dir;
+	PlayerState state;
 	VECTOR prevPos;
 	const Body* hitBlock;
 	const Body* groundBlock;

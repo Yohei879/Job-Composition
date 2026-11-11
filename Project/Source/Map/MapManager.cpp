@@ -2,6 +2,7 @@
 #include "MapParameter.h"
 #include "MapChip.h"
 #include "Block.h"
+#include "../Collision/Collsion.h"
 #include "../Player/Player.h"
 
 // キャラクターの周囲何マスまでチェックするか
@@ -32,65 +33,32 @@ void FinMap()
 {
 }
 
-void ChceckMapPlayerCollision()
+void MoveWithMapCollision(Body* body)
 {
-	//PlayerData player = GetPlayer();
-	//// プレイヤーの足元の座標をマップチップのインデックスに変換
-	//int playerX = (int)(player.posX / MAP_CHIP_WIDTH);
-	//int playerY = (int)((player.posY + PLAYER_HEIGHT) / MAP_CHIP_HEIGHT);
-	//// プレイヤーの左上にあるマップチップインデックス
-	//int left = playerX - CHECK_ROUND_NUM;
-	//int top = playerY - CHECK_ROUND_NUM;
-	//// プレイヤーの右下にあるマップチップインデックス
-	//int right = playerX + CHECK_ROUND_NUM;
-	//int bottom = playerY + CHECK_ROUND_NUM;
+	//X軸だけ移動する
+	body->pos.x += body->move.x;
 
-	//// まずはX軸でチェックする
+	//マップチップと当たり判定&押し出し
+	for (int y = 0; y < MAP_CHIP_Y_NUM; y++)
+	{
+		for (int x = 0; x < MAP_CHIP_X_NUM; x++)
+		{
+			//マップチップが0の場合は何もない
+			MapChipData mapChipData = GetMapChipData(x, y);
+			//マップが0の場合は何もない
+			if (mapChipData.mapChip == 0)continue;
 
-	//// 左上から3マスずつチェックしていく
-	//for (int y = top; y <= bottom; y++)
-	//{
-	//	// マップチップからはみ出したら処理しなくていい
-	//	if (y < 0 || y >= MAP_CHIP_Y_NUM) continue;
+			//ブロックを取り出して当たり判定
+			BlockData* block = mapChipData.data;
+			//当たり判定
+			if (CheckStartSoftSoundPlayer(body->pos.x,body->pos.y,body->width,body->height
+											block->pos.x))
+			{
 
-	//	for (int x = left; x <= right; x++)
-	//	{
-	//		// マップチップからはみ出したら処理しなくていい
-	//		if (x < 0 || x >= MAP_CHIP_X_NUM) continue;
+			}
 
-	//		// マップチップ番号を取得
-	//		MapChipData mapChipData = GetMapChipData(x, y);
-	//		switch (mapChipData.mapChip)
-	//		{
-	//		case NORMAL_BLOCK:
-	//			PlayerHitNormalBlockX(mapChipData);
-	//			break;
-	//		}
-	//	}
-	//}
-
-	//// X軸チェック後にY軸チェックする
-
-	//// 左上から3マスずつチェックしていく
-	//for (int y = top; y <= bottom; y++)
-	//{
-	//	// マップチップからはみ出したら処理しなくていい
-	//	if (y < 0 || y >= MAP_CHIP_Y_NUM) continue;
-
-	//	for (int x = left; x <= right; x++)
-	//	{
-	//		// マップチップからはみ出したら処理しなくていい
-	//		if (x < 0 || x >= MAP_CHIP_X_NUM) continue;
-
-	//		// マップチップ番号を取得
-	//		MapChipData mapChipData = GetMapChipData(x, y);
-	//		switch (mapChipData.mapChip)
-	//		{
-	//		case NORMAL_BLOCK:
-	//			PlayerHitNormalBlockY(mapChipData);
-	//			break;
-	//		}
-	//	}
-	//}
+			
+		}
+	}
 
 }

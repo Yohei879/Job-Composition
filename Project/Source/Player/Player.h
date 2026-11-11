@@ -3,7 +3,7 @@
 #include "../Map/MapParameter.h"
 #include "../Animation/Animation.h"
 #include "../Collision/CollsionParameter.h"
-#include "../PlayerAnimationParameter.h"
+#include "../Player/PlayerAnimationParameter.h"
 
 
 struct PlayerData

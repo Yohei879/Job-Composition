@@ -10,6 +10,7 @@ CameraData g_CameraData = { 0 };
 
 void InitCamera()
 {
+	g_CameraData.pos.z = 2.0f;
 }
 
 void StepCamera()
@@ -19,6 +20,7 @@ void StepCamera()
 
 	g_CameraData.pos.x = player.body.pos.x - 100.0f;
 	g_CameraData.pos.y = player.body.pos.y + 100.0f;
+
 }
 
 void DrawCamera()

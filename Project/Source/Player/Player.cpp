@@ -65,11 +65,13 @@ void InitPlayer()
 	g_PlayerData.body.pos.y = PLAYER_DEFAULT_POS_Y;
 	g_PlayerData.body.move.x = 0.0f;
 	g_PlayerData.body.move.x = 0.0f;
+	g_PlayerData.body.state = PLAYER_STATE_WALK;
 
 	g_PlayerData.respawnTimer = 0;
 	g_PlayerData.active = false;
 	g_PlayerData.invisible = false;
 	g_PlayerData.lifeText = nullptr;
+
 }
 
 
@@ -118,76 +120,87 @@ void StepPlayer()
 	g_PlayerData.body.move.x = 0.0f;
 	g_PlayerData.body.move.y = 0.0f;
 
-	// 上入力
-	if (IsInputKey(KEY_UP))
+	if (g_PlayerData.body.state == PLAYER_STATE_WALK)
 	{
-		g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
-		// テスト
-		g_PlayerData.body.dir = PLAYER_DIR_UP;
-		PlayPlayerAnimation(PLAYER_WALK_UP, 60, true);
+		// 上入力
+		if (IsInputKey(KEY_UP))
+		{
+			g_PlayerData.body.move.y = -PLAYER_MOVE_SPEED;
+			// テスト
+			g_PlayerData.body.dir = PLAYER_DIR_UP;
+			PlayPlayerAnimation(PLAYER_WALK_UP, 60, true);
+		}
+		// 下入力
+		if (IsInputKey(KEY_DOWN))
+		{
+			g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
+			// テスト
+			g_PlayerData.body.dir = PLAYER_DIR_DOWN;
+			PlayPlayerAnimation(PLAYER_WALK_DOWN, 60, true);
+		}
+		// 左入力
+		if (IsInputKey(KEY_LEFT))
+		{
+			g_PlayerData.body.move.x = -PLAYER_MOVE_SPEED;
+			// テスト
+			g_PlayerData.body.dir = PLAYER_DIR_LEFT;
+			PlayPlayerAnimation(PLAYER_WALK_LEFT, 60, true);
+		}
+		// 右入力
+		if (IsInputKey(KEY_RIGHT))
+		{
+			g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
+			// テスト
+			g_PlayerData.body.dir = PLAYER_DIR_RIGHT;
+			PlayPlayerAnimation(PLAYER_WALK_RIGHT, 60, true);
+		}
 	}
-	// 下入力
-	if (IsInputKey(KEY_DOWN))
-	{
-		g_PlayerData.body.move.y = PLAYER_MOVE_SPEED;
-		// テスト
-		g_PlayerData.body.dir = PLAYER_DIR_DOWN;
-		PlayPlayerAnimation(PLAYER_WALK_DOWN, 60, true);
-	}
-	// 左入力
-	if (IsInputKey(KEY_LEFT))
-	{
-		g_PlayerData.body.move.x = -PLAYER_MOVE_SPEED;
-		// テスト
-		g_PlayerData.body.dir = PLAYER_DIR_LEFT;
-		PlayPlayerAnimation(PLAYER_WALK_LEFT, 60, true);
-	}
-	// 右入力
-	if (IsInputKey(KEY_RIGHT))
-	{
-		g_PlayerData.body.move.x = PLAYER_MOVE_SPEED;
-		// テスト
-		g_PlayerData.body.dir = PLAYER_DIR_RIGHT;
-		PlayPlayerAnimation(PLAYER_WALK_RIGHT, 60, true);
-	}
+	
 
 	//Zkeyで攻撃
 	if (IsInputKey(KEY_Z))
 	{
+
 		// 発射位置はちょっと前から
 		float fireX = PLAYER_DEFAULT_POS_X;
 		float fireY = PLAYER_DEFAULT_POS_Y;
+		if (g_PlayerData.body.state==PLAYER_STATE_WALK)
+		{
+			RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
 
-		RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
+			g_PlayerData.body.state = PLAYER_STATE_ATTACK;
+			// テスト
+			//上攻撃アニメーション
+			if (g_PlayerData.body.dir == PLAYER_DIR_UP)
+			{
+				PlayPlayerAnimation(PLAYER_KINOKEN_UP, 20, false);
 
-		// テスト
-		//上攻撃アニメーション
-		if (g_PlayerData.body.dir == PLAYER_DIR_UP)
-		{
-			PlayPlayerAnimation(PLAYER_KINOKEN_UP, 20, false);
+			}
+			//右攻撃アニメーション
+			if (g_PlayerData.body.dir == PLAYER_DIR_RIGHT)
+			{
+				PlayPlayerAnimation(PLAYER_KINOKEN_RIGHT, 20, false);
+			}
+			//左攻撃アニメーション
+			if (g_PlayerData.body.dir == PLAYER_DIR_LEFT)
+			{
+				PlayPlayerAnimation(PLAYER_KINOKEN_LEFT, 20, false);
+			}
+			//下攻撃アニメーション
+			if (g_PlayerData.body.dir == PLAYER_DIR_DOWN)
+			{
+				PlayPlayerAnimation(PLAYER_KINOKEN_DOWN, 20, false);
+			}
 
 		}
-		//右攻撃アニメーション
-		if (g_PlayerData.body.dir == PLAYER_DIR_RIGHT)
-		{
-			PlayPlayerAnimation(PLAYER_KINOKEN_RIGHT, 20, false);
-		}
-		//左攻撃アニメーション
-		if (g_PlayerData.body.dir == PLAYER_DIR_LEFT)
-		{
-			PlayPlayerAnimation(PLAYER_KINOKEN_LEFT, 20, false);
-		}
-		//下攻撃アニメーション
-		if (g_PlayerData.body.dir == PLAYER_DIR_DOWN)
-		{
-			PlayPlayerAnimation(PLAYER_KINOKEN_DOWN, 20, false);
-		}
+
 	}
 
 }
 
 void PlayerAnimationEnd(PlayerAnimationType type)
 {
+	g_PlayerData.body.state = PLAYER_STATE_WALK;
 	switch (type)
 	{
 	case PLAYER_KINOKEN_UP:
@@ -206,7 +219,7 @@ void PlayerAnimationEnd(PlayerAnimationType type)
 		PlayPlayerAnimation(PLAYER_WALK_DOWN, 20, true);
 		break;
 	}
-}	 
+}
 
 void  UpdatePlayer()
 {
@@ -240,15 +253,6 @@ void  UpdatePlayer()
 
 void DrawPlayer()
 {
-	// 死んでいたら処理しない
-	if (!g_PlayerData.active) return;
-
-	//カメラ取得
-	CameraData camera = GetCamera();
-	{
-		// 通常描画
-		//DrawGraph((int)g_PlayerData.body.pos.x, (int)g_PlayerData.body.pos.y, g_PlayerData.handle, TRUE);
-	}
 
 }
 
