@@ -30,9 +30,9 @@ struct PlayerAnimationParam
 
 // 移動可能エリア
 #define PLAYER_MOVE_AREA_LEFT (0.0f)
-#define PLAYER_MOVE_AREA_RIGHT (1536.0f)
+#define PLAYER_MOVE_AREA_RIGHT (1510.0f)
 #define PLAYER_MOVE_AREA_TOP (0.0f)
-#define PLAYER_MOVE_AREA_BOTTOM (750.0f)
+#define PLAYER_MOVE_AREA_BOTTOM (820.0f)
 
 //プレイヤーの向き
 #define PLAYER_DIR_UP (0)

@@ -57,7 +57,7 @@ void DrawBlock()
 			((int)block->pos.x * camera.pos.z,
 				(int)block->pos.y * camera.pos.z,
 				(MAP_CHIP_WIDTH+block->pos.x) *camera.pos.z ,
-				(MAP_CHIP_HEIGHT+block->pos.y) * camera.pos.z,
+				(MAP_CHIP_HEIGHT+block->pos.y) * camera.p,
 				block->handle,
 				TRUE);
 		}

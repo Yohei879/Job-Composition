@@ -19,6 +19,10 @@ bool CheckSquareSquare(float squareA_PosX, float squareA_PosY, float squareA_Wid
 	{
 		// 上下の片がめり込んでいるかチェック
 		if (bottomA > topB && topA < bottomB)
+		{
+			//当たっている
+			return  true;
+		}
 	}
     return false;
 }
