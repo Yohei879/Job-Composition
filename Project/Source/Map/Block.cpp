@@ -3,7 +3,7 @@
 
 BlockData g_Blocks[BLOCK_MAX] = { 0 };
 
-int g_BlockHandle[FLOOR] = { 0 };
+int g_BlockHandle[MAP_CHIP_MAX] = { 0 };
 
 
 void InitBlock()
@@ -53,11 +53,11 @@ void DrawBlock()
 		if (block->active)
 		{
 			//DrawGraph((int)(block->pos.x - camera.pos.x), (int)(block->pos.y - camera.pos.y), block->handle, TRUE);
-			DrawExtendGraph
-			((int)block->pos.x * camera.pos.z,
+			DrawExtendGraph(
+				(int)block->pos.x * camera.pos.z,
 				(int)block->pos.y * camera.pos.z,
-				(MAP_CHIP_WIDTH+block->pos.x) *camera.pos.z ,
-				(MAP_CHIP_HEIGHT+block->pos.y) * camera.p,
+				((int)block->pos.x + MAP_CHIP_WIDTH) * camera.pos.z,
+				((int)block->pos.y + MAP_CHIP_HEIGHT) * camera.pos.z,
 				block->handle,
 				TRUE);
 		}
@@ -81,6 +81,8 @@ BlockData* CreateBlock(MapChipType type, VECTOR pos)
 			block->handle = g_BlockHandle[type];
 			block->pos = pos;
 			block->type = type;
+			block->width = MAP_CHIP_WIDTH;
+			block->height = MAP_CHIP_HEIGHT;
 			return block;
 		}
 	}

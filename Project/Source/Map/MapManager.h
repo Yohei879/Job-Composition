@@ -9,3 +9,4 @@ void DrawMap();
 void FinMap();
 
 void MoveWithMapCollision(Body* body);
+void CalcCollision(Body* body, float& x, float& y, float& w, float& h, float& offsetX, float& offsetY);

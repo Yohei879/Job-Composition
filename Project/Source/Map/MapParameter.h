@@ -23,7 +23,7 @@ enum MapChipType
 	KABE11,
 	KABE12,
 	FLOOR,
-	
+	MAP_CHIP_MAX,
 };
 
 struct BlockData

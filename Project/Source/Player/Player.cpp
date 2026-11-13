@@ -9,6 +9,7 @@
 #include "../Attack/AttackManager.h"
 #include "../Animation/Animation.h"
 #include "PlayerAnimation.h"
+#include "../Map/MapManager.h"
 
 // アニメーション用パラメータ
 struct PlayerAnimationParam
@@ -28,11 +29,20 @@ struct PlayerAnimationParam
 #define PLAYER_MOVE_SPEED (3.0f)
 #define PLAYER_NORMAL_SHOT_INTERVAL (5)
 
+//プレイヤーサイズ
+#define PLAYER_WIDTH (100.0f)
+#define PLAYER_HEIGHT (100.0f)
+
+//
+#define PLAYER_COLLISION_WIDTH (50.0f)
+#define PLAYER_COLLISION_HEIGHT (50.0f)
+
+
 // 移動可能エリア
 #define PLAYER_MOVE_AREA_LEFT (0.0f)
-#define PLAYER_MOVE_AREA_RIGHT (1510.0f)
+#define PLAYER_MOVE_AREA_RIGHT (1600.0f)
 #define PLAYER_MOVE_AREA_TOP (0.0f)
-#define PLAYER_MOVE_AREA_BOTTOM (820.0f)
+#define PLAYER_MOVE_AREA_BOTTOM (900.0f)
 
 //プレイヤーの向き
 #define PLAYER_DIR_UP (0)
@@ -88,6 +98,13 @@ void StartPlayer()
 	// 残機の初期値設定
 	g_PlayerData.life = PLAYER_DEFAULT_LIFE;
 
+	//
+	g_PlayerData.body.width = PLAYER_WIDTH;
+	g_PlayerData.body.height = PLAYER_HEIGHT;
+
+	//
+	g_PlayerData.body.collisionWidth = PLAYER_COLLISION_WIDTH;
+	g_PlayerData.body.collisionHeight = PLAYER_COLLISION_HEIGHT;
 	// 残機のUI生成
 	char text[256];
 	sprintf_s(text, PLAYER_LIFE_STRING, g_PlayerData.life);
@@ -155,7 +172,7 @@ void StepPlayer()
 			PlayPlayerAnimation(PLAYER_WALK_RIGHT, 60, true);
 		}
 	}
-	
+
 
 	//Zkeyで攻撃
 	if (IsInputKey(KEY_Z))
@@ -164,7 +181,7 @@ void StepPlayer()
 		// 発射位置はちょっと前から
 		float fireX = PLAYER_DEFAULT_POS_X;
 		float fireY = PLAYER_DEFAULT_POS_Y;
-		if (g_PlayerData.body.state==PLAYER_STATE_WALK)
+		if (g_PlayerData.body.state == PLAYER_STATE_WALK)
 		{
 			RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
 
@@ -226,9 +243,8 @@ void  UpdatePlayer()
 	// 死んでいたら処理しない
 	if (!g_PlayerData.active) return;
 
-	// 移動処理
-	g_PlayerData.body.pos.x += g_PlayerData.body.move.x;
-	g_PlayerData.body.pos.y += g_PlayerData.body.move.y;
+	// 当たり判定付きで移動
+	MoveWithMapCollision(&g_PlayerData.body);
 
 	// 画面外に出ないように移動制限
 	if (g_PlayerData.body.pos.x < PLAYER_MOVE_AREA_LEFT) g_PlayerData.body.pos.x = PLAYER_MOVE_AREA_LEFT;

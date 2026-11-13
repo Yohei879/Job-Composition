@@ -43,35 +43,41 @@ void MoveWithMapCollision(Body* body)
 	{
 		for (int x = 0; x < MAP_CHIP_X_NUM; x++)
 		{
-			//マップチップが0の場合は何もない
+			//マップチップが取得
 			MapChipData mapChipData = GetMapChipData(x, y);
 			//マップが0の場合は何もない
 			if (mapChipData.mapChip == 0)continue;
 
+			if (mapChipData.data->type == FLOOR)continue;
+
+			float cx, cy, cw, ch, ox, oy;
+			CalcCollision(body, cx, cy, cw, ch, ox, oy);
+
 			//ブロックを取り出して当たり判定
 			BlockData* block = mapChipData.data;
 			//当たり判定
-			if (CheckSquareSquare(body->pos.x, body->pos.y, body->width, body->height,
-				                  block->pos.x, block->pos.y, block->width, block->height))
+			if (CheckSquareSquare(cx, cy, cw, ch,
+				block->pos.x, block->pos.y, block->width, block->height))
 			{
 				//左から当たったか
-				if (body->move.x>0.0f)
+				if (body->move.x > 0.0f)
 				{
 					//左に押し出す
-					body->pos.x -= (body->pos.x + body->width) - block->pos.x;
+					body->pos.x -= (body->pos.x + cw) - block->pos.x + ox;
 				}
 
 				//右から当たったか
 				else if (body->move.x < 0.0f)
 				{
 					//右に押し出す
-					body->pos.x += (block->pos.x + block->width) - body->pos.x;
+					body->pos.x += (block->pos.x + block->width) - body->pos.x - ox;
 				}
+				//移動量は0にする
+				body->move.x = 0.0f;
 			}
-			//移動量は0にする
-			body->move.x = 0.0f;
 		}
 	}
+
 	// Y軸だけ移動する
 	body->pos.y += body->move.y;
 
@@ -85,18 +91,22 @@ void MoveWithMapCollision(Body* body)
 			// マップチップが0の場合は何もない
 			if (mapChipData.mapChip == 0) continue;
 
+			if (mapChipData.data->type == FLOOR)continue;
+
+			float cx, cy, cw, ch, ox, oy;
+			CalcCollision(body, cx, cy, cw, ch, ox, oy);
+
 			// ブロックを取り出して当たり判定
 			BlockData* block = mapChipData.data;
 			// 当たり判定
-			if (CheckSquareSquare(body->pos.x, body->pos.y, body->width, body->height,
+			if (CheckSquareSquare(cx, cy, cw, ch,
 				block->pos.x, block->pos.y, block->width, block->height))
 			{
 				// 上からあたったか
 				if (body->move.y > 0.0f)
 				{
 					// 上に押し出す
-					body->pos.y -= (body->pos.y + body->width) - block->pos.y
-						;
+					body->pos.y -= (body->pos.y + ch) - block->pos.y + oy;
 
 					// 空中フラグを折る
 					body->isAir = false;
@@ -105,14 +115,24 @@ void MoveWithMapCollision(Body* body)
 				else if (body->move.y < 0.0f)
 				{
 					// 下に押し出す
-					body->pos.y += (block->pos.y + block->width) - body->pos.y;
-
+					body->pos.y += (block->pos.y + block->height) - body->pos.y - oy;
 				}
-
 				// 移動量は0にする
 				body->move.y = 0.0f;
 			}
-
 		}
 	}
+}
+
+void CalcCollision(Body* body, float& x, float& y, float& w, float& h, float& offsetX, float& offsetY)
+{
+	float centerX = body->pos.x + body->width / 2;
+	float centerY = body->pos.y + body->height / 2;
+
+	x = centerX - body->collisionWidth / 2;
+	y = centerY - body->collisionHeight / 2;
+	w = body->collisionWidth;
+	h = body->collisionHeight;
+	offsetX = x - body->pos.x;
+	offsetY = y - body->pos.y;
 }

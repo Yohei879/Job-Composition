@@ -17,6 +17,8 @@ struct Body
 	float radius;
 	float reflactPower;
 	float dir;
+	float collisionWidth;
+	float collisionHeight;
 	PlayerState state;
 	VECTOR prevPos;
 	const Body* hitBlock;
