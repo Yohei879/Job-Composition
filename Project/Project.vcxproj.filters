@@ -13,9 +13,6 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{10908420-f84e-4d00-ae56-225df5fc4724}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy">
-      <UniqueIdentifier>{d69093f8-2127-4b8b-8e55-818768d4a011}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\FPS">
       <UniqueIdentifier>{3df301e1-16eb-4692-b16f-7b65cb9138cd}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="Source\Scene\GameOver">
       <UniqueIdentifier>{9a5705a8-7792-4af5-977e-36b0001d11fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\BackGround">
-      <UniqueIdentifier>{5484dd56-323d-4d93-b8fe-f0f22ff4ba06}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UIImage">
       <UniqueIdentifier>{c2395586-a8b6-448f-8bc6-56371e9385f0}</UniqueIdentifier>
@@ -58,11 +52,8 @@
     <Filter Include="Source\Effect">
       <UniqueIdentifier>{bdaab061-20d3-4189-94cd-4a86aebe319f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Attack">
-      <UniqueIdentifier>{8eb9ecce-eb27-4a0b-9e25-51a3f98a6ec0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Bullet">
-      <UniqueIdentifier>{f6a93388-dc55-4516-a437-770952d7a0ec}</UniqueIdentifier>
+    <Filter Include="Source\Enemy">
+      <UniqueIdentifier>{cdc79149-32bc-482b-8d25-2a053cba9282}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,12 +63,6 @@
     <ClCompile Include="Source\Animation\Animation.cpp">
       <Filter>Source\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BackGround\BackGround.cpp">
-      <Filter>Source\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletManager.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Effect\AnimationEffect.cpp">
       <Filter>Source\Effect</Filter>
     </ClCompile>
@@ -86,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="Source\Collision\Collsion.cpp">
       <Filter>Source\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy\EnemyManager.cpp">
-      <Filter>Source\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Source\FPS\FPS.cpp">
       <Filter>Source\FPS</Filter>
@@ -132,28 +114,19 @@
     <ClCompile Include="Source\Map\Block.cpp">
       <Filter>Source\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Attack\Attack.cpp">
-      <Filter>Source\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Attack\AttackManager.cpp">
-      <Filter>Source\Attack</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Player\PlayerAnimation.cpp">
       <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\EnemyManager.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\EnemySuraimu.cpp">
+      <Filter>Source\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Animation\Animation.h">
       <Filter>Source\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BackGround\BackGround.h">
-      <Filter>Source\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletManager.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletParameter.h">
-      <Filter>Source\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Source\Effect\AnimationEffect.h">
       <Filter>Source\Effect</Filter>
@@ -163,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="Source\Collision\Collsion.h">
       <Filter>Source\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\EnemyManager.h">
-      <Filter>Source\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source\FPS\FPS.h">
       <Filter>Source\FPS</Filter>
@@ -218,12 +188,6 @@
     <ClInclude Include="Source\Collision\CollsionParameter.h">
       <Filter>Source\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Attack\Attack.h">
-      <Filter>Source\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Attack\AttackManager.h">
-      <Filter>Source\Attack</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Animation\AnimationParameter.h">
       <Filter>Source\Animation</Filter>
     </ClInclude>
@@ -232,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="Source\Player\PlayerAnimationParameter.h">
       <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyManager.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemySuraimu.h">
+      <Filter>Source\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

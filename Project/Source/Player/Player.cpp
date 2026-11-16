@@ -6,7 +6,6 @@
 #include "../Effect/AnimationEffect.h"
 #include "../Scene/SceneManager.h"
 #include "../Sound/SoundManager.h"
-#include "../Attack/AttackManager.h"
 #include "../Animation/Animation.h"
 #include "PlayerAnimation.h"
 #include "../Map/MapManager.h"
@@ -177,13 +176,9 @@ void StepPlayer()
 	//Zkeyで攻撃
 	if (IsInputKey(KEY_Z))
 	{
-
-		// 発射位置はちょっと前から
-		float fireX = PLAYER_DEFAULT_POS_X;
-		float fireY = PLAYER_DEFAULT_POS_Y;
 		if (g_PlayerData.body.state == PLAYER_STATE_WALK)
 		{
-			RequestFireAttack(ATTACK_LIFE, fireX, fireY, ATTACK_SPEED, 0.0f, ATTACK_RADIUS);
+		
 
 			g_PlayerData.body.state = PLAYER_STATE_ATTACK;
 			// テスト

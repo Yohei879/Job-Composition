@@ -16,6 +16,7 @@ void LoadMap()
 {
 	LoadMapChipData();
 	LoadBlock();
+	
 }
 
 void StartMap()

@@ -2,11 +2,10 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Map/MapManager.h"
 #include "../../Player/Player.h"
-#include "../../Attack/AttackManager.h"
 #include "../../Camera/Camera.h"
 #include "../../Collision/Collsion.h"
-#include "../../Animation/Animation.h"
 #include "../../Player/PlayerAnimation.h"
+#include "../../Enemy/EnemyManager.h"
 #include "../../UI/UIImage.h"
 #include "../../UI/UIText.h"
 
@@ -28,11 +27,11 @@ void InitPlayScene()
 	// カメラ初期化
 	InitCamera();
 
-	//攻撃初期化
-	InitAllAttack();
-
 	//アニメーション初期化
 	InitAnimation();
+
+	//エネミー初期化
+	InitEnemy();
 }
 
 void LoadPlayScene()
@@ -46,17 +45,20 @@ void LoadPlayScene()
 	// マップをロード
 	LoadMap();
 
-	//攻撃ロード
-	LoadAllAttack();
-
 	//アニメーションロード
 	LoadAnimation();
+
+	//エネミーロード
+	LoadEnemy();
 }
 
 void StartPlayScene()
 {
 	// プレイヤー開始
 	StartPlayer();
+
+	//エネミー開始
+	StartEnemy();
 
 	// 各UI生成
 	CreateUIImage(PLAY_FOOTR_FRAME, 0.0f, 775.0f);// フッター枠
@@ -76,9 +78,9 @@ void StepPlayScene()
 	//プレイヤーアニメーションステップ
 	StepPlayerAnimation();
 
-	//攻撃ステップ
-	StepAllAttack();
-
+	//エネミーステップ
+	StepEnemy();
+	
 	// カメラステップ
 	StepCamera();
 
@@ -99,11 +101,11 @@ void UpdatePlayScene()
 	//プレイヤーアニメーション更新
 	UpdatePlayerAnimation();
 
+	//エネミー更新
+	UpdateEnemy();
+
 	// 当たり判定
 	//CheckCollision();
-
-	//攻撃更新
-	UpdateAllAttack();
 
 	// UI更新
 	UpdateUIImage();
@@ -124,8 +126,8 @@ void DrawPlayScene()
 	//プレイヤーアニメーション描画
 	DrawPlayerAnimation();
 
-	//攻撃描画
-	DrawAllAttack();
+	//エネミー描画
+	DrawEnemy();
 
 	// カメラ描画
 	DrawCamera();
@@ -147,11 +149,11 @@ void FinPlayScene()
 	ResetUIImage();
 	ResetUIText();
 
-	//攻撃終了
-	FinAllAttack();
-
 	// プレイヤー終了
 	FinPlayer();
+
+	//エネミー終了
+	FinEnemy();
 
 	//プレイヤーアニメーション終了
 	InitPlayerAnimation();

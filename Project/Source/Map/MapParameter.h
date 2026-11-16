@@ -26,6 +26,13 @@ enum MapChipType
 	MAP_CHIP_MAX,
 };
 
+enum EnemyType
+{
+	MAP_CHIP_ENEMY_NONE,
+	ENEMY_SLIME,
+	MAP_CHIP_ENEMY_MAX
+};
+
 struct BlockData
 {
 	bool active;
