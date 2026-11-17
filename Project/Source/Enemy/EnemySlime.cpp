@@ -1,13 +1,20 @@
-#include "EnemySuraimu.h"
+#include "EnemySlime.h"
 #include "DxLib.h"
 #include "../Camera/Camera.h"
 
 BlockData g_Enemys[BLOCK_MAX] = { 0 };
+
 int enemyNum = 0;
 
 int g_EnemyHandle[MAP_CHIP_ENEMY_MAX] = { 0 };
 
+// 生存できるエリア
+#define ENEMY_DRAGON_FLY_ACTIVE_AREA_LEFT	(-100)
+#define ENEMY_DRAGON_FLY_ACTIVE_AREA_TOP	(-100)
+#define ENEMY_DRAGON_FLY_ACTIVE_AREA_RIGHT	(2000)
+#define ENEMY_DRAGON_FLY_ACTIVE_AREA_BOTTOM	(1000)
 
+//スライムのID 
 #define SLIME_ID (1)
 
 void InitSlime()
@@ -55,6 +62,7 @@ void LoadSlime()
 
 void UpdateSlime()
 {
+
 }
 
 void DrawSlime()
@@ -78,4 +86,16 @@ void DrawSlime()
 
 void FinSlime()
 {
+}
+
+BlockData Slime()
+{
+	return g_Enemys;
+}
+void SlimeHitPlayer(int index)
+{
+	BlockData slime = &g_Enemys[index];
+
+	//衝突したら死亡
+	slime.active = false;
 }

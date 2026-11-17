@@ -35,3 +35,6 @@ PlayerData GetPlayer();
 bool RespawnPlayer();
 
 void PlayerAnimationEnd(PlayerAnimationType type);
+
+// “–‚½‚è”»’è
+void PlayerHitEnemy();

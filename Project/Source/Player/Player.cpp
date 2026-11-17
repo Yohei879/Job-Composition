@@ -233,6 +233,8 @@ void PlayerAnimationEnd(PlayerAnimationType type)
 	}
 }
 
+
+
 void  UpdatePlayer()
 {
 	// 死んでいたら処理しない
@@ -317,4 +319,11 @@ void PlayerDead()
 
 	// リスポーン待機開始
 	g_PlayerData.respawnTimer = PLAYER_RESPAWN_WAIT;
+}
+
+//敵と衝突した
+void PlayerHitEnemy()
+{
+	//敵と衝突したら死亡
+	PlayerDead();
 }

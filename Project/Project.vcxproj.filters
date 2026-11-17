@@ -120,7 +120,7 @@
     <ClCompile Include="Source\Enemy\EnemyManager.cpp">
       <Filter>Source\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy\EnemySuraimu.cpp">
+    <ClCompile Include="Source\Enemy\EnemySlime.cpp">
       <Filter>Source\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,7 +200,7 @@
     <ClInclude Include="Source\Enemy\EnemyManager.h">
       <Filter>Source\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy\EnemySuraimu.h">
+    <ClInclude Include="Source\Enemy\EnemySlime.h">
       <Filter>Source\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

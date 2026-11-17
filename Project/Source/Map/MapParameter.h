@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "../Collision/CollsionParameter.h"
 
 #define BLOCK_MAX 10000
 #define MAP_CHIP_X_NUM (70)
@@ -39,6 +40,7 @@ struct BlockData
 	int handle;
 	MapChipType type;
 	VECTOR pos;
+	Body body;
 	float width;
 	float height;
 };

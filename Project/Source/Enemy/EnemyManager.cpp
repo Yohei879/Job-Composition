@@ -1,4 +1,5 @@
 #include "EnemyManager.h"
+#include "EnemySlime.h"
 
 void InitEnemy()
 {

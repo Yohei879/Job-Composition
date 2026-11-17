@@ -1,5 +1,10 @@
 #pragma once
-#include "EnemySuraimu.h"
+
+enum EnemyType
+{
+	ENEMY_SLIME,
+};
+
 
 void InitEnemy();
 void LoadEnemy();
