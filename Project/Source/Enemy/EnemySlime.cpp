@@ -90,11 +90,12 @@ void FinSlime()
 
 BlockData Slime()
 {
-	return g_Enemys;
+	return *g_Enemys;
 }
+
 void SlimeHitPlayer(int index)
 {
-	BlockData slime = &g_Enemys[index];
+	BlockData slime = g_Enemys[index];
 
 	//Õ“Ë‚µ‚½‚ç€–S
 	slime.active = false;

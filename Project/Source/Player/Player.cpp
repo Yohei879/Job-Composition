@@ -28,9 +28,7 @@ struct PlayerAnimationParam
 #define PLAYER_MOVE_SPEED (3.0f)
 #define PLAYER_NORMAL_SHOT_INTERVAL (5)
 
-//プレイヤーサイズ
-#define PLAYER_WIDTH (100.0f)
-#define PLAYER_HEIGHT (100.0f)
+
 
 //
 #define PLAYER_COLLISION_WIDTH (50.0f)
@@ -178,7 +176,7 @@ void StepPlayer()
 	{
 		if (g_PlayerData.body.state == PLAYER_STATE_WALK)
 		{
-		
+
 
 			g_PlayerData.body.state = PLAYER_STATE_ATTACK;
 			// テスト

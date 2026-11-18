@@ -2,11 +2,12 @@
 #include "DxLib.h"
 #include "../Collision/CollsionParameter.h"
 
-#define BLOCK_MAX 10000
+#define BLOCK_MAX 100000
 #define MAP_CHIP_X_NUM (70)
 #define MAP_CHIP_Y_NUM (69)
 #define MAP_CHIP_WIDTH (25.0f)
 #define MAP_CHIP_HEIGHT (25.0f)
+#define MAP_CHIP_RADIUS (12.5)
 
 enum MapChipType
 {

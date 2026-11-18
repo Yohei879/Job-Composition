@@ -1,11 +1,5 @@
 #pragma once
 
-enum EnemyType
-{
-	ENEMY_SLIME,
-};
-
-
 void InitEnemy();
 void LoadEnemy();
 void StartEnemy();

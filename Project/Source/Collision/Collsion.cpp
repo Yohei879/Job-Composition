@@ -1,8 +1,11 @@
 #include"DxLib.h"
 #include "Collsion.h"
-#include "../Player/Player.h"
+#include "../Enemy/EnemySlime.h"
 #include "../Map/Block.h"
 #include "../Map//MapManager.h"
+#include "../Map/MapParameter.h"
+#include "../Player/Player.h"
+#include "../Player/PlayerAnimation.h"
 #include <math.h>
 
 bool CheckSquareSquare(float squareA_PosX, float squareA_PosY, float squareA_Width, float squareA_Height, float squareB_PosX, float squareB_PosY, float squareB_Width, float squareB_Height)
@@ -29,5 +32,60 @@ bool CheckSquareSquare(float squareA_PosX, float squareA_PosY, float squareA_Wid
 			return  true;
 		}
 	}
-    return false;
+	return false;
+}
+
+bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Radius, float circleB_PosX, float circleB_PosY, float circleB_Radius)
+{
+	// 円の中心間の距離を計算する
+	float distance = sqrtf((circleB_PosX - circleA_PosX) * (circleB_PosX - circleA_PosX) + (circleB_PosY - circleA_PosY) * (circleB_PosY - circleA_PosY));
+
+	// 中心間の距離が2つの円の半径の合計以下であれば当たっている
+	if (distance <= (circleA_Radius + circleB_Radius))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void CheckPlayerSlime()
+{
+	// プレイヤーとFliesの当たり判定
+	PlayerData player = GetPlayer();
+
+	BlockData* slime = GetBlocks();
+
+	// プレイヤーが生きていて無敵でない時だけ判定する
+	if (player.active && !player.invisible)
+	{
+		// プレイヤーの中心座標
+		float playerCenterX = player.body.pos.x + PLAYER_WIDTH / 2;
+		float playerCenterY = player.body.pos.y + PLAYER_HEIGHT / 2;
+
+		for (int i = 0; i < BLOCK_MAX; i++, slime++)
+		{
+			// 死んでいたら判定しない
+			if (!slime->active) continue;
+
+			// Fliesの中心座標
+			float fliesCenterX = slime->pos.x + MAP_CHIP_WIDTH / 2;
+			float fliesCenterY = slime->pos.y + MAP_CHIP_HEIGHT / 2;
+
+			// 円で当たり判定をとる
+			if (CheckCircleCircle(playerCenterX, playerCenterY, PLAYER_RADIUS,
+				fliesCenterX, fliesCenterY, MAP_CHIP_RADIUS))
+			{
+				PlayerHitEnemy();
+				SlimeHitPlayer(i);
+			}
+		}
+	}
+
+}
+
+void CheckCollision()
+{
+	//PlayerとSlimeの当たり判定
+	CheckPlayerSlime();
 }

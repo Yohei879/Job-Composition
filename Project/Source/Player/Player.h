@@ -5,6 +5,10 @@
 #include "../Collision/CollsionParameter.h"
 #include "../Player/PlayerAnimationParameter.h"
 
+//プレイヤーサイズ
+#define PLAYER_WIDTH (100.0f)
+#define PLAYER_HEIGHT (100.0f)
+#define PLAYER_RADIUS	(50.0f)
 
 struct PlayerData
 {
@@ -24,7 +28,6 @@ void LoadPlayer();
 void StartPlayer();
 void StepPlayer();
 void UpdatePlayer();
-void DrawPlayer();
 void FinPlayer();
 void DrawPlayer();
 
