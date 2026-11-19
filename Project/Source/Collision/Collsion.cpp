@@ -51,10 +51,10 @@ bool CheckCircleCircle(float circleA_PosX, float circleA_PosY, float circleA_Rad
 
 void CheckPlayerSlime()
 {
-	// プレイヤーとFliesの当たり判定
+	// プレイヤーとSlimeの当たり判定
 	PlayerData player = GetPlayer();
 
-	BlockData* slime = GetBlocks();
+	EnemyData* enemy = GetSlime();
 
 	// プレイヤーが生きていて無敵でない時だけ判定する
 	if (player.active && !player.invisible)
@@ -63,18 +63,18 @@ void CheckPlayerSlime()
 		float playerCenterX = player.body.pos.x + PLAYER_WIDTH / 2;
 		float playerCenterY = player.body.pos.y + PLAYER_HEIGHT / 2;
 
-		for (int i = 0; i < BLOCK_MAX; i++, slime++)
+		for (int i = 0; i < ENEMY_MAX; i++, enemy++)
 		{
 			// 死んでいたら判定しない
-			if (!slime->active) continue;
+			if (!enemy->active) continue;
 
-			// Fliesの中心座標
-			float fliesCenterX = slime->pos.x + MAP_CHIP_WIDTH / 2;
-			float fliesCenterY = slime->pos.y + MAP_CHIP_HEIGHT / 2;
+			// Slimeの中心座標
+			float enemyCenterX = enemy->body.pos.x + enemy->body.width / 2;
+			float enemyCenterY = enemy->body.pos.y + enemy->body.height / 2;
 
 			// 円で当たり判定をとる
-			if (CheckCircleCircle(playerCenterX, playerCenterY, PLAYER_RADIUS,
-				fliesCenterX, fliesCenterY, MAP_CHIP_RADIUS))
+			if (CheckCircleCircle(playerCenterX, playerCenterY, PLAYER_RADIUS / 2,
+				enemyCenterX, enemyCenterY, ENEMY_SLIME_RADIUS))
 			{
 				PlayerHitEnemy();
 				SlimeHitPlayer(i);

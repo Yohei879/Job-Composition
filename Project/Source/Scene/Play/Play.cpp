@@ -105,7 +105,7 @@ void UpdatePlayScene()
 	UpdateEnemy();
 
 	// “–‚½‚è”»’è
-	//CheckCollision();
+	CheckCollision();
 
 	// UIXV
 	UpdateUIImage();

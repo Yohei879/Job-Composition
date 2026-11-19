@@ -18,9 +18,18 @@ void StepCamera()
 	//プレイヤー取得
 	PlayerData player = GetPlayer();
 
-	g_CameraData.pos.x = player.body.pos.x - 100.0f;
-	g_CameraData.pos.y = player.body.pos.y + 100.0f;
+	//g_CameraData.pos.x = player.body.pos.x - 800;
+	//g_CameraData.pos.y = player.body.pos.y - 450;
 
+	int size = 24 * 24;
+	int xRange = (int)player.body.pos.x / size;	//マップの1区画
+	int yRange = (int)player.body.pos.y / size;	//マップの1区画
+	
+	//カメラ取得
+	CameraData* camera = GetCamera();
+
+	camera->pos.x = xRange * size;
+	camera->pos.y = yRange * size;
 }
 
 void DrawCamera()
@@ -28,8 +37,8 @@ void DrawCamera()
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "カメラの座標＝[%f, %f]", g_CameraData.pos.x, g_CameraData.pos.y);
 }
 
-CameraData GetCamera()
+CameraData* GetCamera()
 {
-	return g_CameraData;
+	return &g_CameraData;
 }
 

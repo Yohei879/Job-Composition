@@ -83,7 +83,7 @@ void DrawPlayerAnimation()
 {
 	PlayerData player = GetPlayer();
 	PlayerAnimationData* animation = g_AnimationData;
-	CameraData camera = GetCamera();
+	CameraData* camera = GetCamera();
 
 	for (int i = 0; i < PLAYER_ANIMATION_MAX; i++,animation++)
 	{
@@ -98,7 +98,7 @@ void DrawPlayerAnimation()
 		int srcY = 0.0f;
 
 		//DrawRectGraphŠÖ”‚Å•`‰æ‚·‚×‚«ƒRƒ}‚Ì•”•ª‚Å•`‰æ‚·‚é
-		DrawRectGraph((int)player.body.pos.x, (int)player.body.pos.y, srcX, srcY, animation->frameWidth, animation->frameHeight, animation->handle, TRUE);
+		DrawRectGraph((int)player.body.pos.x - camera->pos.x, (int)player.body.pos.y - camera->pos.y, srcX, srcY, animation->frameWidth, animation->frameHeight, animation->handle, TRUE);
 	}
 }
 

@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "../Camera/Camera.h"
 
-BlockData g_Enemys[BLOCK_MAX] = { 0 };
+EnemyData g_Enemies[ENEMY_MAX];
 
 int enemyNum = 0;
 
@@ -49,10 +49,12 @@ void LoadSlime()
 
 			if (map == SLIME_ID)
 			{
-				g_Enemys[enemyNum].pos.x = x * MAP_CHIP_WIDTH;
-				g_Enemys[enemyNum].pos.y = y * MAP_CHIP_HEIGHT;
-				g_Enemys[enemyNum].handle = slimeHandle;
-
+				g_Enemies[enemyNum].body.pos.x = x * MAP_CHIP_WIDTH;
+				g_Enemies[enemyNum].body.pos.y = y * MAP_CHIP_HEIGHT;
+				g_Enemies[enemyNum].handle = slimeHandle;
+				g_Enemies[enemyNum].body.width = ENEMYSLIME_WIDTH;
+				g_Enemies[enemyNum].body.height = ENEMYSLIME_HEIGHT;
+				g_Enemies[enemyNum].active = true;
 				enemyNum++;
 
 			}
@@ -68,17 +70,17 @@ void UpdateSlime()
 void DrawSlime()
 {
 	// スクロールのためカメラを取得
-	CameraData camera = GetCamera();
+	CameraData* camera = GetCamera();
 
-	BlockData* block = g_Enemys;
-	for (int i = 0; i < enemyNum; i++, block++)
+	EnemyData* enemy = g_Enemies;
+	for (int i = 0; i < enemyNum; i++, enemy++)
 	{
 		DrawExtendGraph(
-			(int)block->pos.x * camera.pos.z,
-			(int)block->pos.y * camera.pos.z,
-			((int)block->pos.x + MAP_CHIP_WIDTH) * camera.pos.z,
-			((int)block->pos.y + MAP_CHIP_HEIGHT) * camera.pos.z,
-			block->handle,
+			(int)(enemy->body.pos.x - camera->pos.x) * camera->pos.z,
+			(int)(enemy->body.pos.y - camera->pos.y) * camera->pos.z,
+			((int)(enemy->body.pos.x - camera->pos.x) + MAP_CHIP_WIDTH) * camera->pos.z,
+			((int)(enemy->body.pos.y - camera->pos.y) + MAP_CHIP_HEIGHT) * camera->pos.z,
+			enemy->handle,
 			TRUE);
 	}
 	
@@ -88,14 +90,14 @@ void FinSlime()
 {
 }
 
-BlockData Slime()
+EnemyData* GetSlime()
 {
-	return *g_Enemys;
+	return g_Enemies;
 }
 
 void SlimeHitPlayer(int index)
 {
-	BlockData slime = g_Enemys[index];
+	EnemyData slime = g_Enemies[index];
 
 	//衝突したら死亡
 	slime.active = false;

@@ -72,7 +72,7 @@ void InitPlayer()
 	g_PlayerData.body.pos.y = PLAYER_DEFAULT_POS_Y;
 	g_PlayerData.body.move.x = 0.0f;
 	g_PlayerData.body.move.x = 0.0f;
-	g_PlayerData.body.state = PLAYER_STATE_WALK;
+	g_PlayerData.body.state = ACTION_STATE_WALK;
 
 	g_PlayerData.respawnTimer = 0;
 	g_PlayerData.active = false;
@@ -134,7 +134,7 @@ void StepPlayer()
 	g_PlayerData.body.move.x = 0.0f;
 	g_PlayerData.body.move.y = 0.0f;
 
-	if (g_PlayerData.body.state == PLAYER_STATE_WALK)
+	if (g_PlayerData.body.state == ACTION_STATE_WALK)
 	{
 		// 上入力
 		if (IsInputKey(KEY_UP))
@@ -171,14 +171,17 @@ void StepPlayer()
 	}
 
 
+	//Xkeyでカメラ移動
+	//if (IsInputKey(KEY_X))
+
 	//Zkeyで攻撃
 	if (IsInputKey(KEY_Z))
 	{
-		if (g_PlayerData.body.state == PLAYER_STATE_WALK)
+		if (g_PlayerData.body.state == ACTION_STATE_WALK)
 		{
 
 
-			g_PlayerData.body.state = PLAYER_STATE_ATTACK;
+			g_PlayerData.body.state = ACTION_STATE_ATTACK;
 			// テスト
 			//上攻撃アニメーション
 			if (g_PlayerData.body.dir == PLAYER_DIR_UP)
@@ -210,7 +213,7 @@ void StepPlayer()
 
 void PlayerAnimationEnd(PlayerAnimationType type)
 {
-	g_PlayerData.body.state = PLAYER_STATE_WALK;
+	g_PlayerData.body.state = ACTION_STATE_WALK;
 	switch (type)
 	{
 	case PLAYER_KINOKEN_UP:
@@ -241,11 +244,6 @@ void  UpdatePlayer()
 	// 当たり判定付きで移動
 	MoveWithMapCollision(&g_PlayerData.body);
 
-	// 画面外に出ないように移動制限
-	if (g_PlayerData.body.pos.x < PLAYER_MOVE_AREA_LEFT) g_PlayerData.body.pos.x = PLAYER_MOVE_AREA_LEFT;
-	if (g_PlayerData.body.pos.x > PLAYER_MOVE_AREA_RIGHT) g_PlayerData.body.pos.x = PLAYER_MOVE_AREA_RIGHT;
-	if (g_PlayerData.body.pos.y < PLAYER_MOVE_AREA_TOP) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_TOP;
-	if (g_PlayerData.body.pos.y > PLAYER_MOVE_AREA_BOTTOM) g_PlayerData.body.pos.y = PLAYER_MOVE_AREA_BOTTOM;
 
 
 

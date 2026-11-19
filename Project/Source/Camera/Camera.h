@@ -10,4 +10,4 @@ void InitCamera();
 void StepCamera();
 void DrawCamera();
 
-CameraData GetCamera();
+CameraData* GetCamera();

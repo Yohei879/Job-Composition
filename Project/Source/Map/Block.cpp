@@ -45,7 +45,7 @@ void StepBlock()
 void DrawBlock()
 {
 	// スクロールのためカメラを取得
-	CameraData camera = GetCamera();
+	CameraData* camera = GetCamera();
 
 	BlockData* block = g_Blocks;
 	for (int i = 0; i < BLOCK_MAX; i++, block++)
@@ -54,10 +54,10 @@ void DrawBlock()
 		{
 			//DrawGraph((int)(block->pos.x - camera.pos.x), (int)(block->pos.y - camera.pos.y), block->handle, TRUE);
 			DrawExtendGraph(
-				(int)block->pos.x * camera.pos.z,
-				(int)block->pos.y * camera.pos.z,
-				((int)block->pos.x + MAP_CHIP_WIDTH) * camera.pos.z,
-				((int)block->pos.y + MAP_CHIP_HEIGHT) * camera.pos.z,
+				(int)(block->pos.x - camera->pos.x) * camera->pos.z,
+				(int)(block->pos.y - camera->pos.y) * camera->pos.z,
+				((int)(block->pos.x - camera->pos.x) + MAP_CHIP_WIDTH) * camera->pos.z,
+				((int)(block->pos.y - camera->pos.y) + MAP_CHIP_HEIGHT) * camera->pos.z,
 				block->handle,
 				TRUE);
 		}

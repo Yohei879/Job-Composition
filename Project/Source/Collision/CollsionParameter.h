@@ -1,10 +1,10 @@
 #pragma once
 #include "DxLib.h"
 
-enum PlayerState
+enum ActionState
 {
-	PLAYER_STATE_WALK,
-	PLAYER_STATE_ATTACK,
+	ACTION_STATE_WALK,
+	ACTION_STATE_ATTACK,
 };
 
 struct Body
@@ -19,7 +19,7 @@ struct Body
 	float dir;
 	float collisionWidth;
 	float collisionHeight;
-	PlayerState state;
+	ActionState state;
 	VECTOR prevPos;
 	const Body* hitBlock;
 	const Body* groundBlock;
