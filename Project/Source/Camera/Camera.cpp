@@ -18,18 +18,15 @@ void StepCamera()
 	//プレイヤー取得
 	PlayerData player = GetPlayer();
 
-	//g_CameraData.pos.x = player.body.pos.x - 800;
-	//g_CameraData.pos.y = player.body.pos.y - 450;
-
-	int size = 24 * 24;
-	int xRange = (int)player.body.pos.x / size;	//マップの1区画
-	int yRange = (int)player.body.pos.y / size;	//マップの1区画
+	int size = 23.5 * 23.5;//マップの1区画
+	int xRange = (int)player.body.pos.x / size;	
+	int yRange = (int)player.body.pos.y / size;	
 	
 	//カメラ取得
 	CameraData* camera = GetCamera();
 
-	camera->pos.x = xRange * size;
-	camera->pos.y = yRange * size;
+	camera->pos.x = xRange * size-(800-25*25/2);
+	camera->pos.y = yRange * size-(450 - 25 * 25 / 2);
 }
 
 void DrawCamera()
